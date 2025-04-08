@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{{ exam.title }}</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+    .sidebar {
+      width: 230px;
+      height: 100vh;
+      background-color: #343a40;
+      color: white;
+      position: fixed;
+      padding-top: 20px;
+    }
+    .sidebar a {
+      display: block;
+      color: white;
+      padding: 12px 20px;
+      text-decoration: none;
+    }
+    .sidebar a:hover {
+      background-color: #495057;
+    }
+    .main {
+      margin-left: 240px;
+      padding: 20px;
+    }
+    form {
+      margin-top: 20px;
+    }
+    ol {
+      padding-left: 20px;
+    }
+    li {
+      margin-bottom: 15px;
+    }
+    label {
+      display: block;
+      margin: 4px 0;
+    }
+    button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+  <div class="sidebar">
+    <h2 style="text-align:center;">Student</h2>
+    <a href="{% url 'student_dashboard' %}">🏠 Dashboard</a>
+    <a href="{% url 'student_view_exams' %}">📝 View Exams</a>
+    <a href="{% url 'student_view_results' %}">📊 View Results</a>
+    <a href="{% url 'view_materials' %}">📚 View Materials</a>
+    <a href="{% url 'edit_student_profile' %}">⚙️ Edit Profile</a>
+  </div>
+  <div class="main">
+    <h2>{{ exam.title }}</h2>
+    <p>{{ exam.description }}</p>
+
+    <form method="post">
+      {% csrf_token %}
+      <ol>
+        {% for question in questions %}
+        <li>
+          <p>{{ question.text }}</p>
+          <label><input type="radio" name="{{ question.id }}" value="A"> A. {{ question.option_a }}</label>
+          <label><input type="radio" name="{{ question.id }}" value="B"> B. {{ question.option_b }}</label>
+          <label><input type="radio" name="{{ question.id }}" value="C"> C. {{ question.option_c }}</label>
+          <label><input type="radio" name="{{ question.id }}" value="D"> D. {{ question.option_d }}</label>
+        </li>
+        {% endfor %}
+      </ol>
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+</body>
+</html>

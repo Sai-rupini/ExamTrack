@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Edit Profile</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f0f2f5;
+    }
+    .sidebar {
+      width: 230px;
+      height: 100vh;
+      background-color: #343a40;
+      color: white;
+      position: fixed;
+      padding-top: 20px;
+    }
+    .sidebar a {
+      display: block;
+      color: white;
+      padding: 12px 20px;
+      text-decoration: none;
+      transition: background 0.3s;
+    }
+    .sidebar a:hover {
+      background-color: #495057;
+    }
+    .main {
+      margin-left: 240px;
+      padding: 30px;
+    }
+    .form-container {
+      background-color: #fff;
+      padding: 25px 30px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+      max-width: 600px;
+      margin: auto;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+    label {
+      font-weight: 600;
+      display: block;
+      margin-top: 15px;
+    }
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      margin-top: 20px;
+      background-color: #28a745;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #218838;
+    }
+  </style>
+</head>
+<body>
+  <div class="sidebar">
+    <h2 style="text-align:center;">Student</h2>
+    <a href="{% url 'student_dashboard' %}">🏠 Dashboard</a>
+    <a href="{% url 'student_view_exams' %}">📝 View Exams</a>
+    <a href="{% url 'student_view_results' %}">📊 View Results</a>
+    <a href="{% url 'view_materials' %}">📚 View Materials</a>
+    <a href="{% url 'edit_student_profile' %}">⚙️ Edit Profile</a>
+  </div>
+  <div class="main">
+    <div class="form-container">
+      <h2>🛠️ Edit Your Profile</h2>
+      <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save Changes</button>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

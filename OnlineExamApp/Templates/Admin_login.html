@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ExamTrack Administrator Login</title>
+    <style>
+     /* Import Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Background Styling */
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background: linear-gradient(135deg, #7f44a1, #a349b9);
+    color: #fff;
+}
+
+/* Header */
+header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 40px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
+    border-radius: 8px;
+    margin-bottom: 30px;
+}
+
+.header-logo {
+    font-size: 1.8em;
+    font-weight: bold;
+    color: white;
+}
+
+.header-links a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    margin-left: 20px;
+    transition: 0.3s;
+}
+
+.header-links a:hover {
+    color: #ffdb4d;
+}
+
+/* Main Content */
+.main-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+    max-width: 1000px;
+    gap: 20px;
+}
+
+/* Admin Info Section */
+.admin-login {
+    flex: 1;
+    padding: 40px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+.admin-login h2 {
+    color: #ffdb4d;
+    margin-bottom: 15px;
+}
+
+.admin-login p {
+    color: #f3f3f3;
+    line-height: 1.5;
+}
+
+.admin-login ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 15px;
+}
+
+.admin-login li {
+    position: relative;
+    padding-left: 25px;
+    margin-bottom: 10px;
+}
+
+.admin-login li::before {
+    content: '✔';
+    position: absolute;
+    left: 0;
+    color: #ffdb4d;
+    font-weight: bold;
+}
+
+/* Login Form */
+.login-form {
+    flex: 1;
+    padding: 40px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.login-form input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.login-form input:focus {
+    border-color: #4a90e2;
+    outline: none;
+}
+
+/* Avatar */
+.login-form .avatar {
+    width: 90px;
+    height: 90px;
+    background: url('https://cdn-icons-png.flaticon.com/512/3135/3135715.png') no-repeat center;
+    background-size: cover;
+    border-radius: 50%;
+    margin-bottom: 15px;
+}
+
+/* Submit Button */
+button {
+    width: 100%;
+    padding: 12px;
+    background: #7f44a1;
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #7f44a1;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .main-content {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .admin-login, .login-form {
+        width: 90%;
+    }
+}
+
+
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-logo">ExamTrack</div>
+        <div class="header-links">
+            <a href="{% url 'student_login' %}">Student Login</a>
+            <a href="{% url 'teacher_login' %}">Teacher Login</a>
+        </div>
+    </header>
+
+    <div class="main-content">
+        <div class="admin-login">
+            <h2>Administrator Login</h2>
+            <p>Access your ExamTrack admin dashboard to oversee all exams, manage users, and control system settings.</p>
+            <p><strong>As an administrator, you can:</strong></p>
+            <ul>
+                <li>Manage users and permissions</li>
+                <li>Oversee all exams and registrations</li>
+                <li>Configure system settings</li>
+            </ul>
+        </div>
+
+        <div class="login-form">
+            <div class="avatar admin-avatar"></div>
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            <!-- Login Form -->
+            <form method="POST" action="{% url 'admin_login' %}">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Login</button>
+            </form>
+            
+
+            <a href="#">Forgot your password?</a>
+            <a href="{% url 'admin_register' %}">Don't have an account? <strong>Register</strong></a>
+        </div>
+    </div>
+ 
+    
+</body>
+</html>

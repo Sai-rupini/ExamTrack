@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ExamTrack Administrator Registration</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: linear-gradient(135deg, #E6F7FF, #F8F8FF);
+        }
+
+        header {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            box-sizing: border-box;
+        }
+
+        .header-logo {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #4A5568;
+        }
+
+        .header-links {
+            display: flex;
+        }
+
+        .header-links a {
+            text-decoration: none;
+            color: #4A5568;
+            margin-left: 20px;
+        }
+
+        .main-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 80%;
+            max-width: 1200px;
+            margin-top: 50px;
+        }
+
+        .admin-registration {
+            flex: 1;
+            padding: 40px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .admin-registration h2 {
+            color: #3182CE;
+            margin-bottom: 20px;
+        }
+
+        .admin-registration p {
+            color: #4A5568;
+            line-height: 1.6;
+        }
+
+        .admin-registration ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 20px;
+        }
+
+        .admin-registration li {
+            position: relative;
+            padding-left: 25px;
+            margin-bottom: 10px;
+            color: #4A5568;
+        }
+
+        .admin-registration li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #3182CE;
+        }
+
+        .registration-form {
+            flex: 1;
+            padding: 40px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .registration-form h3 {
+            color: #4A5568;
+            margin-bottom: 10px;
+        }
+
+        .registration-form p {
+            color: #718096;
+            font-size: 0.9em;
+            margin-bottom: 20px;
+        }
+
+        .registration-form label {
+            color: #4A5568;
+            margin-bottom: 5px;
+        }
+
+        .registration-form input[type="text"],
+        .registration-form input[type="email"],
+        .registration-form input[type="password"] {
+            width: calc(100% - 24px);
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #CBD5E0;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .registration-form .password-group {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .registration-form .password-group input[type="password"] {
+            width: calc(50% - 8px);
+        }
+
+        .registration-form input[type="submit"] {
+            width: 100%;
+            padding: 12px;
+            background-color: #3182CE;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .registration-form input[type="submit"]:hover {
+            background-color: #2C5282;
+        }
+
+        .registration-form .note {
+            color: #718096;
+            font-size: 0.8em;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-logo">ExamTrack</div>
+        <div class="header-links">
+            <a href="{% url 'student_register' %}">Student Portal</a>
+            <a href="{% url 'teacher_register' %}">Teacher Portal</a>
+        </div>
+    </header>
+
+    <div class="main-content">
+        <div class="admin-registration">
+            <h2>Administrator Registration</h2>
+            <p>Register as an ExamTrack administrator to manage the entire exam system, users, and platform settings.</p>
+            <p><strong>As an administrator, you can:</strong></p>
+            <ul>
+                <li>Manage all users and permissions</li>
+                <li>Configure system settings</li>
+            </ul>
+        </div>
+
+        <div class="registration-form">
+            <h3>Create Administrator Account</h3>
+            <div class="message-container">
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+
+            <!-- ✅ Django Form -->
+            <form method="POST" action="{% url 'admin_register' %}">
+                {% csrf_token %}
+                
+                {{ form.non_field_errors }}  <!-- Displays form validation errors -->
+            
+                <label for="username">Username:</label>
+                <input type="text" name="username" id="username" required value="{{ form.username.value|default_if_none:'' }}">
+            
+                <label for="email">Email:</label>
+                <input type="email" name="email" id="email" required value="{{ form.email.value|default_if_none:'' }}">
+            
+                <label for="password1">Password:</label>
+                <input type="password" name="password1" id="password1" required>
+            
+                <label for="password2">Confirm Password:</label>
+                <input type="password" name="password2" id="password2" required>
+            
+                <input type="submit" value="Register">
+            </form>
+            
+            
+        </div>
+    </div>
+    <div class="message-container">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    </div>
+    
+    <!-- ✅ Display form validation errors -->
+    {% if form.errors %}
+        <div class="alert alert-danger">
+            <ul>
+                {% for field, errors in form.errors.items %}
+                    {% for error in errors %}
+                        <li>{{ field|capfirst }}: {{ error }}</li>
+                    {% endfor %}
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ExamTrack Student Login</title>
+    <style>
+    /* Import Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Background Styling */
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background: linear-gradient(135deg, #4a90e2, #9856f0);
+    color: #fff;
+}
+
+/* Header */
+header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 40px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
+    border-radius: 8px;
+    margin-bottom: 30px;
+}
+
+.header-logo {
+    font-size: 1.8em;
+    font-weight: bold;
+    color: white;
+}
+
+.header-links a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    margin-left: 20px;
+    transition: 0.3s;
+}
+
+.header-links a:hover {
+    color: #ffdb4d;
+}
+
+/* Main Content */
+.main-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+    max-width: 1000px;
+    gap: 20px;
+}
+
+/* Student Info Section */
+.student-login {
+    flex: 1;
+    padding: 40px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+.student-login h2 {
+    color: #ffdb4d;
+    margin-bottom: 15px;
+}
+
+.student-login p {
+    color: #f3f3f3;
+    line-height: 1.5;
+}
+
+.student-login ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 15px;
+}
+
+.student-login li {
+    position: relative;
+    padding-left: 25px;
+    margin-bottom: 10px;
+}
+
+.student-login li::before {
+    content: '✔';
+    position: absolute;
+    left: 0;
+    color: #ffdb4d;
+    font-weight: bold;
+}
+
+/* Login Form */
+.login-form {
+    flex: 1;
+    padding: 40px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Avatar */
+.login-form .avatar {
+    width: 90px;
+    height: 90px;
+    background: url('https://cdn-icons-png.flaticon.com/512/3135/3135715.png') no-repeat center;
+    background-size: cover;
+    border-radius: 50%;
+    margin-bottom: 15px;
+}
+
+/* Messages */
+.alert {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 14px;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.alert-error {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+/* Form Fields */
+.login-form input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.login-form input:focus {
+    border-color: #4a90e2;
+    outline: none;
+}
+
+/* Submit Button */
+button {
+    width: 100%;
+    padding: 12px;
+    background: #4a90e2;
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #3a78c2;
+}
+
+/* Links */
+.login-form a {
+    text-decoration: none;
+    color: #4a90e2;
+    margin-top: 10px;
+    transition: 0.3s;
+}
+
+.login-form a:hover {
+    color: #3a78c2;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .main-content {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .student-login, .login-form {
+        width: 90%;
+    }
+}
+
+</style>
+</head>
+<body>
+    <header>
+        <div class="header-logo">ExamTrack</div>
+        <div class="header-links">
+            <a href="{% url 'teacher_login' %}">Teacher Login</a>
+            <a href="{% url 'admin_login' %}">Admin Login</a>
+        </div>
+    </header>
+
+    <div class="main-content">
+        <div class="student-login">
+            <h2>Student Login</h2>
+            <p>Access your ExamTrack student account to view available exams, register for tests, and check your exam schedule.</p>
+            <p><strong>As a student, you can:</strong></p>
+            <ul>
+                <li>Browse available exams</li>
+                <li>Register for upcoming exams</li>
+                <li>View your exam schedule</li>
+            </ul>
+        </div>
+
+        <div class="login-form">
+            <div class="avatar"></div>
+
+            <!-- Display messages -->
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            <!-- Login Form -->
+            <form method="POST" action="{% url 'student_login' %}">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Login</button>
+            </form>
+            
+
+            <a href="#">Forgot your password?</a>
+            <a href="{% url 'student_register' %}">Don't have an account? <strong>Register</strong></a>
+        </div>
+    </div>
+</body>
+</html>

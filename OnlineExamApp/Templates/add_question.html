@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<h2>Add Question to {{ exam.title }}</h2>
+<form method="POST">{% csrf_token %}
+  <label>Question:</label><textarea name="text" class="form-control"></textarea><br>
+  <label>Option 1:</label><input type="text" name="option1"><br>
+  <label>Option 2:</label><input type="text" name="option2"><br>
+  <label>Option 3:</label><input type="text" name="option3"><br>
+  <label>Option 4:</label><input type="text" name="option4"><br>
+  <label>Correct Option (1-4):</label><input type="text" name="correct_option"><br><br>
+  <input type="submit" value="Add Question">
+</form>
+{% endblock %}

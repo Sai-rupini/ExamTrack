@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>View Students</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+        }
+        .sidebar {
+            width: 250px;
+            background-color: #3f236b;
+            color: white;
+            padding: 30px 20px;
+            min-height: 100vh;
+        }
+        .sidebar h3 {
+            font-size: 26px;
+            margin-bottom: 40px;
+            font-weight: bold;
+            text-align: center;
+        }
+        .sidebar a {
+            color: white;
+            display: block;
+            padding: 12px 10px;
+            text-decoration: none;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            transition: background 0.3s;
+        }
+        .sidebar a:hover {
+            background-color: #5b349f;
+        }
+        .main-content {
+            flex-grow: 1;
+            padding: 40px;
+            background-color: #f4f4f4;
+        }
+    </style>
+</head>
+<body>
+<div class="sidebar">
+    <h3>Teacher Panel</h3>
+    <a href="{% url 'teacher_dashboard' %}">🏠 Dashboard</a>
+    <a href="{% url 'create_exam' %}">📝 Create Exam</a>
+    <a href="{% url 'view_students_results' %}">📊 View Results</a>
+    <a href="{% url 'upload_material' %}">📁 Upload Materials</a>
+    <a href="{% url 'logout' %}">🚪 Logout</a>
+</div>
+<div class="main-content">
+    <h2 class="mb-4">📊 Students and Exam Results</h2>
+    {% for student in students %}
+        <div class="card shadow mb-4">
+            <div class="card-header bg-dark text-white fw-bold">
+                {{ student.user.get_full_name }} ({{ student.user.username }})
+            </div>
+            <div class="card-body">
+                {% if results %}
+                    <ul class="list-group">
+                        {% for result in results %}
+                            {% if result.student == student.user %}
+                                <li class="list-group-item d-flex justify-content-between">
+                                    <strong>{{ result.exam.title }}</strong>
+                                    <span>{{ result.score }}%</span>
+                                    <span class="text-muted small">{{ result.date_taken|date:"M d, Y H:i" }}</span>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p class="text-muted">No results available.</p>
+                {% endif %}
+            </div>
+        </div>
+    {% endfor %}
+</div>
+</body>
+</html>

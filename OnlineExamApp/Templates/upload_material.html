@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Upload Study Material</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f1f3f6;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: #3f236b;
+            color: white;
+            padding: 30px 20px;
+            min-height: 100vh;
+            position: fixed;
+        }
+
+        .sidebar h3 {
+            font-size: 26px;
+            margin-bottom: 40px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .sidebar a {
+            color: white;
+            display: block;
+            padding: 12px 10px;
+            text-decoration: none;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            transition: background 0.3s ease;
+        }
+
+        .sidebar a:hover {
+            background-color: #5b349f;
+        }
+
+        .main-content {
+            margin-left: 250px;
+            flex-grow: 1;
+            padding: 50px 40px;
+        }
+
+        .content-box {
+            background-color: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-label {
+            font-weight: 600;
+        }
+
+        .form-control, .form-select {
+            border-radius: 8px;
+        }
+
+        .btn-success {
+            border-radius: 8px;
+            padding: 10px 20px;
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .alert {
+            margin-top: 20px;
+            border-radius: 8px;
+            font-weight: 500;
+        }
+
+        h2 {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 25px;
+        }
+    </style>
+</head>
+<body>
+<div class="sidebar">
+    <h3>Teacher Panel</h3>
+    <a href="{% url 'teacher_dashboard' %}">🏠 Dashboard</a>
+    <a href="{% url 'create_exam' %}">📝 Create Exam</a>
+    <a href="{% url 'view_students_results' %}">📊 View Results</a>
+    <a href="{% url 'upload_material' %}">📁 Upload Materials</a>
+    <a href="{% url 'logout' %}">🚪 Logout</a>
+</div>
+
+<div class="main-content">
+    <div class="content-box">
+        <h2>📁 Upload Study Material</h2>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label class="form-label">Title</label>
+                {{ form.title }}
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Description</label>
+                {{ form.description }}
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Upload File</label>
+                {{ form.file }}
+            </div>
+            <button type="submit" class="btn btn-success">📤 Upload</button>
+        </form>
+
+        {% if messages %}
+            <div class="mt-4">
+                {% for message in messages %}
+                    <div class="alert alert-success">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+</div>
+</body>
+</html>

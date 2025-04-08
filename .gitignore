@@ -1,0 +1,30 @@
+# Python Bytecode
+*.py[cod]
+__pycache__/
+
+# Environment Variables
+.env
+
+# Django Stuff
+db.sqlite3
+/media/
+/staticfiles/
+
+# VS Code Settings
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Migrations (optional to ignore, but sometimes useful)
+*/migrations/__pycache__/
+*/migrations/*.pyc
+
+# Virtual Environment
+venv/
+ENV/
+env/
