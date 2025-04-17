@@ -39,3 +39,54 @@ The project follows a well-organized structure to keep all files manageable and 
 1. Clone the repository:
    ```bash
    git clone https://github.com/Sai-rupini/ExamTrack.git
+   Navigate to the project directory:
+
+'''bash
+cd ExamTrack
+2. Set Up a Virtual Environment (Optional but recommended)
+A virtual environment helps manage dependencies for your project separately from your system’s Python installation.
+
+Create a Virtual Environment
+'''bash
+python -m venv env
+Activate the Virtual Environment
+On Windows:
+
+'''bash
+env\Scripts\activate
+On macOS/Linux:
+
+'''bash
+source env/bin/activate
+3. Install Project Dependencies
+With the virtual environment activated, install all necessary Python packages:
+
+'''bash
+pip install -r requirements.txt
+4. Apply Database Migrations
+Next, set up the database by applying Django migrations. This will create the necessary tables in the SQLite database.
+
+'''bash
+python manage.py migrate
+5. Create a Superuser (Optional)
+To access the Django admin interface, create a superuser account:
+
+'''bash
+python manage.py createsuperuser
+Follow the prompts to set the username, email, and password for the superuser.
+
+6. Run the Development Server
+Start the Django development server to view the project locally:
+
+'''bash
+python manage.py runserver
+7. Access the Application
+Once the server is running, open your browser and go to:
+
+http://localhost:8000
+
+You can log in as a regular user (student, teacher, or admin) or use the superuser credentials to access the admin dashboard at:
+
+http://localhost:8000/admin
+
+
