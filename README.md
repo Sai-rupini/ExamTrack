@@ -4,15 +4,6 @@ Welcome to **OnlineExamProject**, a Django-based platform that simplifies online
 
 ---
 
-## 📘 **Project Documentation**
-
-For detailed project information, setup instructions, and usage guidelines, please refer to the full documentation:
-
-📄 [Click here to view the full documentation (PDF)](https://github.com/Sai-rupini/ExamTrack/raw/main/docs/Documentation.pdf)
-
-
----
-
 ## 📁 **Project Structure**
 
 The project follows a well-organized structure to keep all files manageable and maintainable:
