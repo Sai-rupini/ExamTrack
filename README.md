@@ -8,7 +8,8 @@ Welcome to **OnlineExamProject**, a Django-based platform that simplifies online
 
 For detailed project information, setup instructions, and usage guidelines, please refer to the full documentation:
 
-📄 [Click here to view the full documentation (PDF)](docs/Documentation.pdf)
+📄 [Click here to view the full documentation (PDF)](https://github.com/Sai-rupini/ExamTrack/raw/main/docs/Documentation.pdf)
+
 
 ---
 
